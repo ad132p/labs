@@ -1,5 +1,10 @@
-# k8s_local
-k8s environment built with opentofu, libvirt/KVM, ansible
+# labs
+
+This is how I test software:
+
+## libvirt
+## opentofu
+## ansible
 
 Steps:
 
@@ -12,3 +17,8 @@ tofu init
 tofu apply
 ansible-playbook -u admin -b --private-key ./ssh_keys/opentofu -i ansible/inventory ansible/kubernetes_cluster.yaml
 ```
+
+
+## k8s
+
+Please check ansible repo for deploy a local k8s cluster.
