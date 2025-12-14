@@ -30,7 +30,7 @@ variable "vcpu" {
 
 variable "distros" {
   type = list
-  default = ["debian"]
+  default = ["rocky"]
 }
 
 variable "ips" {

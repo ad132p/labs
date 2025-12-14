@@ -1,36 +1,48 @@
 terraform {
   required_providers {
     libvirt = {
-      source = "dmacvicar/libvirt"
+      source  = "dmacvicar/libvirt"
+      version = "0.8.3"
     }
   }
 }
 
 provider "libvirt" {
+# uri = "qemu:///system?socket=/run/libvirt/libvirt-sock"
   uri = "qemu:///system"
 } 
 
+resource "libvirt_pool" "k8s" {
+  name = "k8s"
+  type = "dir"
+  path = abspath("${path.module}/pool")
+}
+
 resource "libvirt_volume" "os_image" {
   name   = "os_image"
+  pool   = libvirt_pool.k8s.name
   source = "${path.module}/${var.source_vm}"
   format = "qcow2"
 }
 
 resource "libvirt_volume" "disk_resized" {
   name           = "disk"
+  pool           = libvirt_pool.k8s.name
   base_volume_id = "${libvirt_volume.os_image.id}"
   size           = 20000000000 # 20GiB
 }
 
 resource "libvirt_volume" "worker" {
   name           = "worker_${count.index}.qcow2"
+  pool           = libvirt_pool.k8s.name
   base_volume_id = "${libvirt_volume.disk_resized.id}"
   count          = var.hosts
 }
 
 resource "libvirt_cloudinit_disk" "commoninit" { 
   count     = var.hosts
-  name      = "commoninit-debian_${var.hostnames[count.index]}.iso"
+  name      = "commoninit-rocky_${var.hostnames[count.index]}.iso"
+  pool      = libvirt_pool.k8s.name
   user_data = templatefile("${path.module}/templates/user_data.tpl", 
   {
       host_name = var.hostnames[count.index]
@@ -50,7 +62,7 @@ resource "libvirt_network" "priv" {
   mode = "nat"
 
   #  the domain used by the DNS server in this network
-  domain = "priv.local"
+  domain = "default.local"
 
   dns {
     enabled = true
@@ -84,6 +96,11 @@ resource "libvirt_domain" "domain-distro" {
       target_port = "1"
       target_type = "virtio"
   }  
+
+  graphics {
+    type        = "vnc"
+    listen_type = "address"
+  }
 
   cpu {
     mode = "host-passthrough"
