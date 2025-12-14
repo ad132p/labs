@@ -45,7 +45,7 @@ def mongodb_rs_upgrade():
         Returns a dict with 'primary' and 'secondaries' lists.
         """
         # Configuration - In a real scenario, fetch these from Variables or Connections
-        mongo_uri = context['params'].get('mongo_uri','mongodb://root:percona@db-1:27017,db-2:27017,db-3:27017/?replicaSet=rs0')
+        mongo_uri = context['params'].get('mongo_uri','mongodb://root:password@db-1:27017,db-2:27017,db-3:27017/?replicaSet=rs0')
         
         client = pymongo.MongoClient(mongo_uri)
         status = client.admin.command('replSetGetStatus')
