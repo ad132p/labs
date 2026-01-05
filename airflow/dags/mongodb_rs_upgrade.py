@@ -45,7 +45,7 @@ def mongodb_rs_upgrade():
         Returns a dict with 'primary' and 'secondaries' lists.
         """
         # Configuration - In a real scenario, fetch these from Variables or Connections
-        mongo_uri = context['params'].get('mongo_uri','mongodb://root:password@db-1:27017,db-2:27017,db-3:27017/?replicaSet=rs0')
+        mongo_uri = context['params'].get('mongo_uri','mongodb://root:percona@db-1:27017,db-2:27017,db-3:27017/?replicaSet=rs0')
         
         client = pymongo.MongoClient(mongo_uri)
         status = client.admin.command('replSetGetStatus')
@@ -200,23 +200,78 @@ def mongodb_rs_upgrade():
         
         raise Exception("Could not set FCV after multiple retries")
 
-    # Dynamic Task Mapping for Secondaries
-    # We pass the list of secondaries to the SSHOperator
-    # Note: SSHOperator doesn't directly support mapping over 'ssh_conn_id' easily in all versions without custom expansion.
-    # So we used a Python decorated task to wrap the SSH execution or use mapped SSHOperator if supported.
-    # For safety and clarity in this example, I'll use a mapped Python task that invokes SSHHook or just SSHOperator.
-    
-    # Actually, proper Airflow 2.3+ mapping:
-    upgrade_secondaries = SSHOperator.partial(
-        task_id='upgrade_secondary',
-        command=upgrade_commands,
-        cmd_timeout=600,
-        # assuming ssh_conn_id matches hostname, or we map it differently. 
-        # For simplicity, we assume generic 'ssh_default' or user passed ID, 
-        # BUT usually we need unique IPs. 
-        # Let's map remote_host instead.
-        ssh_conn_id='ssh_default', 
-    ).expand(remote_host=secondary_hosts)
+    @task
+    def upgrade_secondaries_sequentially(discovery_result, **context):
+        from airflow.providers.ssh.hooks.ssh import SSHHook
+        
+        secondaries = discovery_result['secondaries']
+        mongo_uri = context['params'].get('mongo_uri', 'mongodb://root:percona@db-1:27017,db-2:27017,db-3:27017/?replicaSet=rs0')
+        client = pymongo.MongoClient(mongo_uri)
+        
+        for host in secondaries:
+            print(f"Starting upgrade for secondary: {host}")
+            
+            # Execute Upgrade Command via SSH
+            # We assume the SSH connection ID matches the host or is passed in a predictable way
+            # For this example, we'll try to use 'ssh_default' but ideally it should be dynamic
+            # In a real world scenario, you might have specific conn_ids per host or use the hostname in the conn
+            
+            try:
+                # Using a generic hook for demonstration, assuming it can connect to 'host'
+                # If using distinct connection IDs per host:
+                # ssh_hook = SSHHook(ssh_conn_id=f"ssh_{host}") 
+                # If using one key for all:
+                ssh_hook = SSHHook(ssh_conn_id='ssh_default', remote_host=host)
+                
+                # Execute command ONLY ONCE
+                stdin, stdout, stderr = ssh_hook.get_conn().exec_command(upgrade_commands, timeout=600)
+                
+                # Wait for command to complete and get exit status
+                exit_status = stdout.channel.recv_exit_status()
+                
+                print(f"Upgrade output for {host}:")
+                out_str = stdout.read().decode()
+                err_str = stderr.read().decode()
+                print(out_str)
+                
+                if err_str:
+                    print(f"STDERR for {host}:")
+                    print(err_str)
+                
+                if exit_status != 0:
+                    raise Exception(f"Upgrade failed on {host} with status {exit_status}")
+                    
+            except Exception as e:
+                raise Exception(f"SSH Execution failed for {host}: {e}")
+
+            # Health Check: Wait for node to return to SECONDARY state
+            print(f"Waiting for {host} to rejoin as SECONDARY...")
+            max_retries = 30
+            retry = 0
+            while retry < max_retries:
+                try:
+                    status = client.admin.command('replSetGetStatus')
+                    member_status = next((m for m in status['members'] if m['name'].startswith(host)), None)
+                    
+                    if member_status:
+                        state_str = member_status['stateStr']
+                        print(f"Current state of {host}: {state_str}")
+                        if state_str == 'SECONDARY':
+                            print(f"{host} is healthy and caught up.")
+                            break
+                    else:
+                        print(f"Member {host} not found in status yet...")
+                        
+                except Exception as e:
+                    print(f"Error checking status: {e}")
+                
+                time.sleep(10)
+                retry += 1
+            
+            if retry >= max_retries:
+                raise Exception(f"Timeout waiting for {host} to become SECONDARY")
+
+    upgrade_secondaries = upgrade_secondaries_sequentially(discovery)
 
     # Upgrade the FORMER primary (which is now a secondary)
     upgrade_former_primary = SSHOperator(
