@@ -16,7 +16,7 @@ virsh net-autostart priv
 ```
 
 
-## opentofu (aka)
+## opentofu (aka terraform)
 
 Download VM images and create VMs.
 
