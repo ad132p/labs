@@ -3,3 +3,5 @@ sources
 pool
 ssh_keys
 terraform*
+.dont
+.venv

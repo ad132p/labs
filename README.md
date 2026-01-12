@@ -1,12 +1,24 @@
 # labs
 
-This is how I test software:
+I am a dba, therefore most of the time I need to test software on virtual machines
+This is how I decided to do it:
+
+
 
 ## libvirt
-## opentofu
-## ansible
 
-Steps:
+```
+virsh pool-define-as --name default --type dir --target $HOME/terraform/volumes
+virsh net-list
+virsh net-define priv.xml
+virsh net-start priv
+virsh net-autostart priv
+```
+
+
+## opentofu (aka)
+
+Download VM images and create VMs.
 
 ```
 ssh-keygen -b 2048 -t rsa -f ./ssh_keys/opentofu -q -N ""
@@ -15,10 +27,14 @@ curl --output-dir "sources" -L -o rocky9.qcow2 https://download.rockylinux.org/p
 curl --output-dir "sources" -L -o debian12.qcow2 https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-generic-amd64.qcow2
 tofu init
 tofu apply
-ansible-playbook -u admin -b --private-key ./ssh_keys/opentofu -i ansible/inventory ansible/kubernetes_cluster.yaml
 ```
 
 
 ## k8s
 
-Please check ansible repo for deploy a local k8s cluster.
+Please check ansible directory for deploying a local k8s cluster.
+
+
+## airflow
+
+export AIRFLOW_CONN_SSH_DEFAULT='ssh://username@:22?{"key_file": "/home/airflow/.ssh/id_rsa"}'
