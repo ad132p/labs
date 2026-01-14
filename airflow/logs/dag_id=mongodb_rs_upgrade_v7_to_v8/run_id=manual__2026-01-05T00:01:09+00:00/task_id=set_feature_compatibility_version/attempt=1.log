@@ -1,0 +1,12 @@
+{"timestamp":"2026-01-05T00:03:44.370444Z","level":"info","event":"DAG bundles loaded: dags-folder, example_dags","logger":"airflow.dag_processing.bundles.manager.DagBundlesManager","filename":"manager.py","lineno":179}
+{"timestamp":"2026-01-05T00:03:44.370947Z","level":"info","event":"Filling up the DagBag from /repos/labs/airflow/dags/mongodb_rs_upgrade.py","logger":"airflow.models.dagbag.DagBag","filename":"dagbag.py","lineno":593}
+{"timestamp":"2026-01-05T00:03:44.470905Z","level":"info","event":"Task instance is in running state","logger":"task.stdout"}
+{"timestamp":"2026-01-05T00:03:44.471041Z","level":"info","event":" Previous state of the Task instance: TaskInstanceState.QUEUED","logger":"task.stdout"}
+{"timestamp":"2026-01-05T00:03:44.471167Z","level":"info","event":"Current task name:set_feature_compatibility_version","logger":"task.stdout"}
+{"timestamp":"2026-01-05T00:03:44.471212Z","level":"info","event":"Dag name:mongodb_rs_upgrade_v7_to_v8","logger":"task.stdout"}
+{"timestamp":"2026-01-05T00:03:44.482689Z","level":"info","event":"Setting featureCompatibilityVersion to 8.0...","logger":"task.stdout"}
+{"timestamp":"2026-01-05T00:03:44.502717Z","level":"info","event":"Successfully set FCV to 8.0","logger":"task.stdout"}
+{"timestamp":"2026-01-05T00:03:44.502870Z","level":"info","event":"Done. Returned value was: None","logger":"airflow.task.operators.airflow.providers.standard.decorators.python._PythonDecoratedOperator","filename":"python.py","lineno":215}
+{"timestamp":"2026-01-05T00:03:44.524775Z","level":"info","event":"Task instance in success state","logger":"task.stdout"}
+{"timestamp":"2026-01-05T00:03:44.524891Z","level":"info","event":" Previous state of the Task instance: TaskInstanceState.RUNNING","logger":"task.stdout"}
+{"timestamp":"2026-01-05T00:03:44.525023Z","level":"info","event":"Task operator:<Task(_PythonDecoratedOperator): set_feature_compatibility_version>","logger":"task.stdout"}

@@ -1,0 +1,11 @@
+{"timestamp":"2025-12-14T23:22:32.466514Z","level":"info","event":"DAG bundles loaded: dags-folder, example_dags","logger":"airflow.dag_processing.bundles.manager.DagBundlesManager","filename":"manager.py","lineno":179}
+{"timestamp":"2025-12-14T23:22:32.467022Z","level":"info","event":"Filling up the DagBag from /repos/labs/airflow/dags/mongodb_rs_upgrade.py","logger":"airflow.models.dagbag.DagBag","filename":"dagbag.py","lineno":593}
+{"timestamp":"2025-12-14T23:22:32.567017Z","level":"info","event":"Task instance is in running state","logger":"task.stdout"}
+{"timestamp":"2025-12-14T23:22:32.567124Z","level":"info","event":" Previous state of the Task instance: TaskInstanceState.QUEUED","logger":"task.stdout"}
+{"timestamp":"2025-12-14T23:22:32.567254Z","level":"info","event":"Current task name:step_down_primary","logger":"task.stdout"}
+{"timestamp":"2025-12-14T23:22:32.567313Z","level":"info","event":"Dag name:mongodb_rs_upgrade_v7_to_v8","logger":"task.stdout"}
+{"timestamp":"2025-12-14T23:22:32.576280Z","level":"info","event":"Stepping down primary: db-1","logger":"task.stdout"}
+{"timestamp":"2025-12-14T23:22:47.599602Z","level":"info","event":"Done. Returned value was: None","logger":"airflow.task.operators.airflow.providers.standard.decorators.python._PythonDecoratedOperator","filename":"python.py","lineno":215}
+{"timestamp":"2025-12-14T23:22:47.630836Z","level":"info","event":"Task instance in success state","logger":"task.stdout"}
+{"timestamp":"2025-12-14T23:22:47.630935Z","level":"info","event":" Previous state of the Task instance: TaskInstanceState.RUNNING","logger":"task.stdout"}
+{"timestamp":"2025-12-14T23:22:47.631068Z","level":"info","event":"Task operator:<Task(_PythonDecoratedOperator): step_down_primary>","logger":"task.stdout"}

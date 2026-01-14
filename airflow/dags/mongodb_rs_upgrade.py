@@ -1,6 +1,8 @@
 from datetime import datetime
 from airflow.sdk import dag, task
 from airflow.providers.ssh.operators.ssh import SSHOperator
+from airflow.providers.standard.sensors.python import PythonSensor
+from airflow.models import Variable
 import pymongo
 import time
 
@@ -205,7 +207,7 @@ def mongodb_rs_upgrade():
         
         # Wait for election and verify new primary
         print("Waiting for new primary to be elected...")
-        for i in range(30):
+        for i in range(10):
             time.sleep(5)
             try:
                 # We query the cluster status
@@ -343,13 +345,27 @@ def mongodb_rs_upgrade():
     step_down_task = step_down_primary(discovery)
     set_fcv_task = set_feature_compatibility_version()
 
+    def check_approval(**context):
+        if Variable.get("mongodb_upgrade_proceed_fcv", default_var="no") == "yes":
+            return True
+        return False
+
+    wait_for_confirmation = PythonSensor(
+        task_id='wait_for_fcv_confirmation',
+        python_callable=check_approval,
+        mode='reschedule',
+        poke_interval=60,
+        timeout=3600 # 1 hour timeout
+    )
+
     # Flow
     # 1. Discover
     # 2. Upgrade all current secondaries (in parallel)
     # 3. Step down primary (to make it a secondary)
     # 4. Upgrade the node that was primary
-    # 5. Finalize FCV
+    # 5. Wait for Manual Confirmation
+    # 6. Finalize FCV
     
-    discovery >> upgrade_secondaries >> step_down_task >> upgrade_former_primary >> set_fcv_task
+    discovery >> upgrade_secondaries >> step_down_task >> upgrade_former_primary >> wait_for_confirmation >> set_fcv_task
 
 dag = mongodb_rs_upgrade()

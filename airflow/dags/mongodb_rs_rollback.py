@@ -39,10 +39,15 @@ default_args = {
 def mongodb_rs_rollback():
 
     @task(multiple_outputs=True)
-    def discover_members(**context):
+    def service_discovery(**context):
         """
         Connects to the MongoDB Replica Set and identifies the Primary and Secondaries.
+        Performs health checks:
+        1. Ensures all nodes are in healthy state (PRIMARY, SECONDARY, ARBITER).
+        2. Ensures no Secondary is lagging behind more than 10 seconds.
+        Returns a dict with 'primary' and 'secondaries' lists.
         """
+        # Configuration - In a real scenario, fetch these from Variables or Connections
         mongo_uri = context['params'].get('mongo_uri','mongodb://root:percona@db-1:27017,db-2:27017,db-3:27017/?replicaSet=rs0')
         
         client = pymongo.MongoClient(mongo_uri)
@@ -52,23 +57,50 @@ def mongodb_rs_rollback():
         primary = None
         secondaries = []
         
+        # Find Primary first to get reference optime
+        primary_optime = None
         for member in members:
-            host = member['name'].split(':')[0]
             if member['stateStr'] == 'PRIMARY':
-                primary = host
-            elif member['stateStr'] == 'SECONDARY':
-                secondaries.append(host)
+                primary_optime = member['optimeDate']
+                break
         
-        if not primary:
-            raise Exception("No Primary found in Replica Set!")
+        if not primary_optime:
+             raise Exception("No Primary found in Replica Set! Cluster may be unhealthy.")
+
+        for member in members:
+            name = member['name']
+            state = member['stateStr']
+            host = name.split(':')[0] # Assuming name is host:port
             
+            # Health Check: Validate State
+            if state not in ['PRIMARY', 'SECONDARY', 'ARBITER']:
+                raise Exception(f"Node {name} is in unhealthy state: {state}")
+            
+            # Replication Lag Check for Secondaries
+            if state == 'SECONDARY':
+                secondary_optime = member['optimeDate']
+                lag = (primary_optime - secondary_optime).total_seconds()
+                
+                if lag > 10:
+                    raise Exception(f"Secondary {name} is lagging behind by {lag} seconds (Threshold: 10s).")
+                
+                secondaries.append(host)
+                
+            elif state == 'PRIMARY':
+                primary = host
+
+        if not primary:
+            raise Exception("No Primary found in Replica Set (Logic Error)!")
+            
+        print(f"Service Discovery passed. Primary: {primary}, Secondaries: {secondaries}")
+        
         return {
             'primary': primary,
             'secondaries': secondaries,
             'all_members': [primary] + secondaries
         }
 
-    discovery = discover_members()
+    discovery = service_discovery()
 
     @task
     def set_fcv_to_7_0(**context):
@@ -241,19 +273,52 @@ def mongodb_rs_rollback():
 
     @task
     def step_down_primary(topology, **context):
-        primary_host = topology['primary']
+        """
+        Connects to the Primary node and executes rs.stepDown().
+        Verifies that a new primary is elected and returns its hostname.
+        """
+        old_primary = topology['primary']
         mongo_uri = context['params'].get('mongo_uri', 'mongodb://root:percona@db-1:27017,db-2:27017,db-3:27017/?replicaSet=rs0')
         client = pymongo.MongoClient(mongo_uri)
         
-        print(f"Stepping down primary: {primary_host}")
+        print(f"Stepping down primary: {old_primary}")
         try:
+            # We connect specifically to the old primary to command it to step down
             client.admin.command('replSetStepDown', 60, secondaryCatchUpPeriodSecs=10, force=True)
         except pymongo.errors.AutoReconnect:
-            print("Successfully stepped down.")
+            print("Successfully stepped down (connection closed as expected).")
         except Exception as e:
             print(f"Error executing stepDown: {e}")
+            # It might have succeeded but threw an error due to connection loss
             pass
-        time.sleep(15)
+        
+        # Wait for election and verify new primary
+        print("Waiting for new primary to be elected...")
+        for i in range(10):
+            time.sleep(5)
+            try:
+                # We query the cluster status
+                status = client.admin.command('replSetGetStatus')
+                new_primary = None
+                
+                for member in status['members']:
+                    if member['stateStr'] == 'PRIMARY':
+                        new_primary = member['name'].split(':')[0]
+                        break
+                
+                if new_primary:
+                    if new_primary != old_primary:
+                        print(f"New Primary elected: {new_primary}")
+                        return
+                    else:
+                        print(f"Old primary {old_primary} is still primary. Waiting...")
+                else:
+                    print("No primary currently elected. Waiting...")
+                    
+            except Exception as e:
+                print(f"Error checking status: {e}")
+        
+        raise Exception("Failed to elect a new primary after stepDown!")
 
     step_down = step_down_primary(discovery)
 

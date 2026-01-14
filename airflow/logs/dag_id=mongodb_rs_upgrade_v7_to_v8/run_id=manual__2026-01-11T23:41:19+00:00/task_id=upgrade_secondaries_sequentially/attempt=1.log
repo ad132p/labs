@@ -1,0 +1,198 @@
+{"timestamp":"2026-01-11T23:41:24.477203Z","level":"info","event":"DAG bundles loaded: dags-folder, example_dags","logger":"airflow.dag_processing.bundles.manager.DagBundlesManager","filename":"manager.py","lineno":179}
+{"timestamp":"2026-01-11T23:41:24.477753Z","level":"info","event":"Filling up the DagBag from /repos/labs/airflow/dags/mongodb_rs_upgrade.py","logger":"airflow.models.dagbag.DagBag","filename":"dagbag.py","lineno":593}
+{"timestamp":"2026-01-11T23:41:24.705233Z","level":"info","event":"Task instance is in running state","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:41:24.705355Z","level":"info","event":" Previous state of the Task instance: TaskInstanceState.QUEUED","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:41:24.705503Z","level":"info","event":"Current task name:upgrade_secondaries_sequentially","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:41:24.705551Z","level":"info","event":"Dag name:mongodb_rs_upgrade_v7_to_v8","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:41:24.714051Z","level":"info","event":"Starting upgrade for secondary: db-2","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:41:24.756136Z","level":"warning","event":"No Host Key Verification. This won't protect against Man-In-The-Middle attacks","logger":"airflow.task.hooks.airflow.providers.ssh.hooks.ssh.SSHHook","filename":"ssh.py","lineno":297}
+{"timestamp":"2026-01-11T23:41:24.766430Z","level":"info","event":"Connected (version 2.0, client OpenSSH_8.7)","logger":"paramiko.transport","filename":"transport.py","lineno":1944}
+{"timestamp":"2026-01-11T23:41:24.826650Z","level":"info","event":"Authentication (publickey) successful!","logger":"paramiko.transport","filename":"transport.py","lineno":1944}
+{"timestamp":"2026-01-11T23:42:15.270017Z","level":"info","event":"Upgrade output for db-2:","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.270271Z","level":"info","event":"Starting Upgrade on db-2...","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.270357Z","level":"info","event":"Detected OS: rocky","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.270446Z","level":"info","event":"Stopping MongoDB...","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.270529Z","level":"info","event":"Running RHEL/Rocky upgrade path...","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.270578Z","level":"info","event":"Installing Percona Server for MongoDB 8.0...","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.270624Z","level":"info","event":"* Enabling the Percona Server for MongoDB 8.0 repository","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.270667Z","level":"info","event":"<*> All done!","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.270708Z","level":"info","event":"Percona Server for MongoDB 8.0 release/x86_64 Y 4.0 kB/s | 1.5 kB     00:00","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.270753Z","level":"info","event":"Package percona-server-mongodb-7.0.28-15.el9.x86_64 is already installed.","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.270807Z","level":"info","event":"Dependencies resolved.","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.270857Z","level":"info","event":"================================================================================","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.270899Z","level":"info","event":" Package                      Arch   Version      Repository               Size","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.270934Z","level":"info","event":"================================================================================","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.270969Z","level":"info","event":"Upgrading:","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.271001Z","level":"info","event":" percona-server-mongodb       x86_64 8.0.17-6.el9 psmdb-80-release-x86_64 8.2 k","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.271033Z","level":"info","event":" percona-server-mongodb-mongos","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.271066Z","level":"info","event":"                              x86_64 8.0.17-6.el9 psmdb-80-release-x86_64  31 M","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.271107Z","level":"info","event":" percona-server-mongodb-server","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.271141Z","level":"info","event":"                              x86_64 8.0.17-6.el9 psmdb-80-release-x86_64  66 M","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.271173Z","level":"info","event":" percona-server-mongodb-tools x86_64 8.0.17-6.el9 psmdb-80-release-x86_64  32 M","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.271204Z","level":"info","event":"","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.271238Z","level":"info","event":"Transaction Summary","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.271270Z","level":"info","event":"================================================================================","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.271302Z","level":"info","event":"Upgrade  4 Packages","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.271334Z","level":"info","event":"","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.271365Z","level":"info","event":"Total download size: 129 M","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.271400Z","level":"info","event":"Downloading Packages:","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.271432Z","level":"info","event":"(1/4): percona-server-mongodb-8.0.17-6.el9.x86_  19 kB/s | 8.2 kB     00:00","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.271464Z","level":"info","event":"(2/4): percona-server-mongodb-mongos-8.0.17-6.e 5.5 MB/s |  31 MB     00:05","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.271496Z","level":"info","event":"(3/4): percona-server-mongodb-tools-8.0.17-6.el 4.9 MB/s |  32 MB     00:06","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.271527Z","level":"info","event":"(4/4): percona-server-mongodb-server-8.0.17-6.e 6.6 MB/s |  66 MB     00:09","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.271558Z","level":"info","event":"--------------------------------------------------------------------------------","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.271589Z","level":"info","event":"Total                                            13 MB/s | 129 MB     00:09","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.271620Z","level":"info","event":"Running transaction check","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.271650Z","level":"info","event":"Transaction check succeeded.","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.271680Z","level":"info","event":"Running transaction test","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.271710Z","level":"info","event":"Transaction test succeeded.","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.271740Z","level":"info","event":"Running transaction","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.271770Z","level":"info","event":"  Preparing        :                                                        1/1","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.271812Z","level":"info","event":"  Upgrading        : percona-server-mongodb-tools-8.0.17-6.el9.x86_64       1/8","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.271852Z","level":"info","event":"  Running scriptlet: percona-server-mongodb-server-8.0.17-6.el9.x86_64      2/8","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.271886Z","level":"info","event":"  Upgrading        : percona-server-mongodb-server-8.0.17-6.el9.x86_64      2/8","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.271917Z","level":"info","event":"warning: /etc/mongod.conf created as /etc/mongod.conf.rpmnew","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.271951Z","level":"info","event":"","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.271983Z","level":"info","event":"  Running scriptlet: percona-server-mongodb-server-8.0.17-6.el9.x86_64      2/8","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.272020Z","level":"info","event":" * To start the service, configure your engine and start mongod","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.272054Z","level":"info","event":"** Join Percona Squad! **","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.272087Z","level":"info","event":"","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.272119Z","level":"info","event":"Participate in monthly SWAG raffles, get early access to new product features,","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.272153Z","level":"info","event":"invite-only ”ask me anything” sessions with database performance experts.","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.272190Z","level":"info","event":"","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.272225Z","level":"info","event":"Interested? Fill in the form at https://squad.percona.com/mongodb","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.272258Z","level":"info","event":"","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.272289Z","level":"info","event":"","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.272319Z","level":"info","event":"  Running scriptlet: percona-server-mongodb-mongos-8.0.17-6.el9.x86_64      3/8","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.272351Z","level":"info","event":"  Upgrading        : percona-server-mongodb-mongos-8.0.17-6.el9.x86_64      3/8","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.272382Z","level":"info","event":"  Running scriptlet: percona-server-mongodb-mongos-8.0.17-6.el9.x86_64      3/8","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.272413Z","level":"info","event":"  Upgrading        : percona-server-mongodb-8.0.17-6.el9.x86_64             4/8","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.272445Z","level":"info","event":"  Cleanup          : percona-server-mongodb-7.0.28-15.el9.x86_64            5/8","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.272476Z","level":"info","event":"  Cleanup          : percona-server-mongodb-mongos-7.0.28-15.el9.x86_64     6/8","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.272508Z","level":"info","event":"  Running scriptlet: percona-server-mongodb-mongos-7.0.28-15.el9.x86_64     6/8","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.272538Z","level":"info","event":"  Running scriptlet: percona-server-mongodb-server-7.0.28-15.el9.x86_64     7/8","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.272568Z","level":"info","event":"  Cleanup          : percona-server-mongodb-server-7.0.28-15.el9.x86_64     7/8","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.272598Z","level":"info","event":"  Running scriptlet: percona-server-mongodb-server-7.0.28-15.el9.x86_64     7/8","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.272630Z","level":"info","event":"  Cleanup          : percona-server-mongodb-tools-7.0.28-15.el9.x86_64      8/8","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.272663Z","level":"info","event":"  Running scriptlet: percona-server-mongodb-tools-7.0.28-15.el9.x86_64      8/8","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.272693Z","level":"info","event":"  Verifying        : percona-server-mongodb-8.0.17-6.el9.x86_64             1/8","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.272724Z","level":"info","event":"  Verifying        : percona-server-mongodb-7.0.28-15.el9.x86_64            2/8","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.272758Z","level":"info","event":"  Verifying        : percona-server-mongodb-mongos-8.0.17-6.el9.x86_64      3/8","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.272790Z","level":"info","event":"  Verifying        : percona-server-mongodb-mongos-7.0.28-15.el9.x86_64     4/8","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.272835Z","level":"info","event":"  Verifying        : percona-server-mongodb-server-8.0.17-6.el9.x86_64      5/8","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.272874Z","level":"info","event":"  Verifying        : percona-server-mongodb-server-7.0.28-15.el9.x86_64     6/8","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.272957Z","level":"info","event":"  Verifying        : percona-server-mongodb-tools-8.0.17-6.el9.x86_64       7/8","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.272999Z","level":"info","event":"  Verifying        : percona-server-mongodb-tools-7.0.28-15.el9.x86_64      8/8","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.273036Z","level":"info","event":"","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.273074Z","level":"info","event":"Upgraded:","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.273107Z","level":"info","event":"  percona-server-mongodb-8.0.17-6.el9.x86_64","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.273140Z","level":"info","event":"  percona-server-mongodb-mongos-8.0.17-6.el9.x86_64","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.273175Z","level":"info","event":"  percona-server-mongodb-server-8.0.17-6.el9.x86_64","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.273206Z","level":"info","event":"  percona-server-mongodb-tools-8.0.17-6.el9.x86_64","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.273238Z","level":"info","event":"","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.273268Z","level":"info","event":"Complete!","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.273301Z","level":"info","event":"Starting MongoDB...","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.273331Z","level":"info","event":"Waiting for health check...","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.273361Z","level":"info","event":"MongoDB is up!","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.273392Z","level":"info","event":"","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.273422Z","level":"info","event":"Waiting for db-2 to rejoin as SECONDARY...","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.276824Z","level":"info","event":"Current state of db-2: SECONDARY","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.276928Z","level":"info","event":"db-2 is healthy and caught up.","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.276980Z","level":"info","event":"Starting upgrade for secondary: db-3","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:15.315780Z","level":"warning","event":"No Host Key Verification. This won't protect against Man-In-The-Middle attacks","logger":"airflow.task.hooks.airflow.providers.ssh.hooks.ssh.SSHHook","filename":"ssh.py","lineno":297}
+{"timestamp":"2026-01-11T23:42:15.326449Z","level":"info","event":"Connected (version 2.0, client OpenSSH_8.7)","logger":"paramiko.transport","filename":"transport.py","lineno":1944}
+{"timestamp":"2026-01-11T23:42:15.383733Z","level":"info","event":"Authentication (publickey) successful!","logger":"paramiko.transport","filename":"transport.py","lineno":1944}
+{"timestamp":"2026-01-11T23:42:52.923016Z","level":"info","event":"Upgrade output for db-3:","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.923272Z","level":"info","event":"Starting Upgrade on db-3...","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.923351Z","level":"info","event":"Detected OS: rocky","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.923418Z","level":"info","event":"Stopping MongoDB...","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.923480Z","level":"info","event":"Running RHEL/Rocky upgrade path...","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.923541Z","level":"info","event":"Installing Percona Server for MongoDB 8.0...","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.923603Z","level":"info","event":"* Enabling the Percona Server for MongoDB 8.0 repository","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.923664Z","level":"info","event":"<*> All done!","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.923725Z","level":"info","event":"Percona Server for MongoDB 8.0 release/x86_64 Y 3.7 kB/s | 1.5 kB     00:00","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.923809Z","level":"info","event":"Package percona-server-mongodb-7.0.28-15.el9.x86_64 is already installed.","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.923881Z","level":"info","event":"Dependencies resolved.","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.923940Z","level":"info","event":"================================================================================","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.924000Z","level":"info","event":" Package                      Arch   Version      Repository               Size","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.924055Z","level":"info","event":"================================================================================","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.924103Z","level":"info","event":"Upgrading:","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.924151Z","level":"info","event":" percona-server-mongodb       x86_64 8.0.17-6.el9 psmdb-80-release-x86_64 8.2 k","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.924199Z","level":"info","event":" percona-server-mongodb-mongos","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.924245Z","level":"info","event":"                              x86_64 8.0.17-6.el9 psmdb-80-release-x86_64  31 M","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.924291Z","level":"info","event":" percona-server-mongodb-server","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.924336Z","level":"info","event":"                              x86_64 8.0.17-6.el9 psmdb-80-release-x86_64  66 M","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.924383Z","level":"info","event":" percona-server-mongodb-tools x86_64 8.0.17-6.el9 psmdb-80-release-x86_64  32 M","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.924429Z","level":"info","event":"","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.924473Z","level":"info","event":"Transaction Summary","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.924521Z","level":"info","event":"================================================================================","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.924567Z","level":"info","event":"Upgrade  4 Packages","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.924612Z","level":"info","event":"","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.924657Z","level":"info","event":"Total download size: 129 M","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.924700Z","level":"info","event":"Downloading Packages:","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.924746Z","level":"info","event":"(1/4): percona-server-mongodb-8.0.17-6.el9.x86_  21 kB/s | 8.2 kB     00:00","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.924791Z","level":"info","event":"(2/4): percona-server-mongodb-tools-8.0.17-6.el 8.5 MB/s |  32 MB     00:03","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.924854Z","level":"info","event":"(3/4): percona-server-mongodb-mongos-8.0.17-6.e 4.7 MB/s |  31 MB     00:06","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.924902Z","level":"info","event":"(4/4): percona-server-mongodb-server-8.0.17-6.e 9.6 MB/s |  66 MB     00:06","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.924948Z","level":"info","event":"--------------------------------------------------------------------------------","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.924996Z","level":"info","event":"Total                                            19 MB/s | 129 MB     00:06","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.925042Z","level":"info","event":"Running transaction check","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.925088Z","level":"info","event":"Transaction check succeeded.","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.925136Z","level":"info","event":"Running transaction test","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.925187Z","level":"info","event":"Transaction test succeeded.","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.925235Z","level":"info","event":"Running transaction","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.925279Z","level":"info","event":"  Preparing        :                                                        1/1","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.925324Z","level":"info","event":"  Upgrading        : percona-server-mongodb-tools-8.0.17-6.el9.x86_64       1/8","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.925372Z","level":"info","event":"  Running scriptlet: percona-server-mongodb-server-8.0.17-6.el9.x86_64      2/8","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.925418Z","level":"info","event":"  Upgrading        : percona-server-mongodb-server-8.0.17-6.el9.x86_64      2/8","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.925463Z","level":"info","event":"warning: /etc/mongod.conf created as /etc/mongod.conf.rpmnew","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.925510Z","level":"info","event":"","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.925554Z","level":"info","event":"  Running scriptlet: percona-server-mongodb-server-8.0.17-6.el9.x86_64      2/8","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.925601Z","level":"info","event":" * To start the service, configure your engine and start mongod","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.925647Z","level":"info","event":"** Join Percona Squad! **","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.925692Z","level":"info","event":"","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.925739Z","level":"info","event":"Participate in monthly SWAG raffles, get early access to new product features,","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.925786Z","level":"info","event":"invite-only ”ask me anything” sessions with database performance experts.","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.925849Z","level":"info","event":"","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.925897Z","level":"info","event":"Interested? Fill in the form at https://squad.percona.com/mongodb","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.925945Z","level":"info","event":"","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.925991Z","level":"info","event":"","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.926035Z","level":"info","event":"  Running scriptlet: percona-server-mongodb-mongos-8.0.17-6.el9.x86_64      3/8","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.926082Z","level":"info","event":"  Upgrading        : percona-server-mongodb-mongos-8.0.17-6.el9.x86_64      3/8","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.926127Z","level":"info","event":"  Running scriptlet: percona-server-mongodb-mongos-8.0.17-6.el9.x86_64      3/8","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.926172Z","level":"info","event":"  Upgrading        : percona-server-mongodb-8.0.17-6.el9.x86_64             4/8","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.926218Z","level":"info","event":"  Cleanup          : percona-server-mongodb-7.0.28-15.el9.x86_64            5/8","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.926263Z","level":"info","event":"  Cleanup          : percona-server-mongodb-mongos-7.0.28-15.el9.x86_64     6/8","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.926309Z","level":"info","event":"  Running scriptlet: percona-server-mongodb-mongos-7.0.28-15.el9.x86_64     6/8","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.926355Z","level":"info","event":"  Running scriptlet: percona-server-mongodb-server-7.0.28-15.el9.x86_64     7/8","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.926399Z","level":"info","event":"  Cleanup          : percona-server-mongodb-server-7.0.28-15.el9.x86_64     7/8","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.926445Z","level":"info","event":"  Running scriptlet: percona-server-mongodb-server-7.0.28-15.el9.x86_64     7/8","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.926494Z","level":"info","event":"  Cleanup          : percona-server-mongodb-tools-7.0.28-15.el9.x86_64      8/8","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.926539Z","level":"info","event":"  Running scriptlet: percona-server-mongodb-tools-7.0.28-15.el9.x86_64      8/8","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.926585Z","level":"info","event":"  Verifying        : percona-server-mongodb-8.0.17-6.el9.x86_64             1/8","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.926630Z","level":"info","event":"  Verifying        : percona-server-mongodb-7.0.28-15.el9.x86_64            2/8","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.926677Z","level":"info","event":"  Verifying        : percona-server-mongodb-mongos-8.0.17-6.el9.x86_64      3/8","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.926724Z","level":"info","event":"  Verifying        : percona-server-mongodb-mongos-7.0.28-15.el9.x86_64     4/8","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.926768Z","level":"info","event":"  Verifying        : percona-server-mongodb-server-8.0.17-6.el9.x86_64      5/8","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.926824Z","level":"info","event":"  Verifying        : percona-server-mongodb-server-7.0.28-15.el9.x86_64     6/8","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.926939Z","level":"info","event":"  Verifying        : percona-server-mongodb-tools-8.0.17-6.el9.x86_64       7/8","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.926995Z","level":"info","event":"  Verifying        : percona-server-mongodb-tools-7.0.28-15.el9.x86_64      8/8","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.927044Z","level":"info","event":"","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.927091Z","level":"info","event":"Upgraded:","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.927137Z","level":"info","event":"  percona-server-mongodb-8.0.17-6.el9.x86_64","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.927185Z","level":"info","event":"  percona-server-mongodb-mongos-8.0.17-6.el9.x86_64","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.927236Z","level":"info","event":"  percona-server-mongodb-server-8.0.17-6.el9.x86_64","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.927282Z","level":"info","event":"  percona-server-mongodb-tools-8.0.17-6.el9.x86_64","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.927328Z","level":"info","event":"","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.927372Z","level":"info","event":"Complete!","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.927418Z","level":"info","event":"Starting MongoDB...","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.927463Z","level":"info","event":"Waiting for health check...","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.927508Z","level":"info","event":"MongoDB is up!","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.927554Z","level":"info","event":"","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.927599Z","level":"info","event":"Waiting for db-3 to rejoin as SECONDARY...","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.927644Z","level":"info","event":"Current state of db-3: SECONDARY","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.927690Z","level":"info","event":"db-3 is healthy and caught up.","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.924329Z","level":"info","event":"Done. Returned value was: None","logger":"airflow.task.operators.airflow.providers.standard.decorators.python._PythonDecoratedOperator","filename":"python.py","lineno":215}
+{"timestamp":"2026-01-11T23:42:52.945117Z","level":"info","event":"Task instance in success state","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.945220Z","level":"info","event":" Previous state of the Task instance: TaskInstanceState.RUNNING","logger":"task.stdout"}
+{"timestamp":"2026-01-11T23:42:52.945382Z","level":"info","event":"Task operator:<Task(_PythonDecoratedOperator): upgrade_secondaries_sequentially>","logger":"task.stdout"}
