@@ -1,0 +1,14 @@
+<network>
+  <name>priv</name>
+  <uuid>9dd668a1-d667-4cd0-885a-d620253f527d</uuid>
+  <forward mode='nat'/>
+  <bridge name='virbr1' stp='on' delay='0'/>
+  <mac address='52:54:00:9a:77:73'/>
+  <domain name='default.local' localOnly='yes'/>
+  <dns enable='yes'/>
+  <ip family='ipv4' address='192.168.100.1' prefix='24'>
+    <dhcp>
+      <range start='192.168.100.2' end='192.168.100.254'/>
+    </dhcp>
+  </ip>
+</network>
