@@ -123,6 +123,6 @@ resource "null_resource" "shutdowner" {
 }
 
 variable "vm_condition_poweron" {
-  default = true
+  default = false
 }
 
