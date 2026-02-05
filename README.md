@@ -30,6 +30,12 @@ tofu init
 tofu apply
 ```
 
+### Shutdown:
+```
+tofu apply -var="vm_condition_poweron=false"
+```
+
+
 ## s3 (garage)
 
 ```
@@ -49,3 +55,4 @@ Please check ansible directory for deploying a local k8s cluster.
 ```
 export AIRFLOW_CONN_SSH_DEFAULT='ssh://username@:22?{"key_file": "/home/airflow/.ssh/id_rsa"}'
 ```
+

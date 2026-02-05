@@ -42,3 +42,7 @@ variable "auth_key" {
   type = string
   default = ""
 } 
+
+variable "vm_condition_poweron" {
+  default = true
+}

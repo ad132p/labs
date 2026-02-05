@@ -69,6 +69,8 @@ resource "libvirt_network" "priv" {
     local_only = true
   }
 
+  autostart = true
+
   #  list of subnets the addresses allowed for domains connected
   # also derived to define the host addresses
   # also derived to define the addresses served by the DHCP server
@@ -121,8 +123,3 @@ resource "null_resource" "shutdowner" {
     command = var.vm_condition_poweron?"echo 'do nothing'":"virsh -c qemu:///system shutdown ${each.value}"
   }
 }
-
-variable "vm_condition_poweron" {
-  default = false
-}
-
