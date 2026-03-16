@@ -5,3 +5,4 @@ ssh_keys
 terraform*
 .dont
 .venv
+variables_monitor.tf
